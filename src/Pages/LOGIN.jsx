@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
-import { Helmet } from "react-helmet";
 import Swal from 'sweetalert2';
-var baseUrl = process.env.BACKEND_URL;
 
 class Loginpage extends Component {
     constructor(...props) {
         super(...props)
         window.history.replaceState(null, null, "/login");
         this.state = {
-            empid: '',
-            type: 'Payroll',
+            name:'',
             password: ''
         }
     }
 
-    updateInput = (e) => {
-        e.preventDefault();
-        const value = e.target.value;
-        this.setState({ empid: value });
-    }
+    
     updatePassword = (e) => {
         e.preventDefault();
         const value = e.target.value;
@@ -44,32 +37,6 @@ class Loginpage extends Component {
                 'error'
             )
             return
-        }
-        if (this.state.empid != undefined && this.state.empid.trim() != "" && this.state.password.trim() != '' && this.state.password != undefined) {
-            // candidate/full-information/32
-
-            var url = baseUrl + '/api/v1/user-login';
-            console.log("ffff", data)
-            var ffff = ''
-            if (this.state.type == 'Payroll') {
-                ffff = 'payroll'
-            } else if (this.state.type == 'Admin') {
-                ffff = 'admin'
-                // url=baseUrl + '/api/users/admin-login';
-            } else if (this.state.type == 'Recruiter') {
-                ffff = 'recruiter'
-                // url=baseUrl + '/api/recruiter/login-otp';
-            }
-            var data = JSON.stringify({ "password": this.state.password, "username": "" + this.state.empid, "user_type": ffff });
-
-
-        } else {
-            // this.setState({error:'Please enter valid details. ' })
-            Swal.fire(
-                'Please enter valid details. ',
-                '',
-                'error'
-            )
         }
     }
     render() {
